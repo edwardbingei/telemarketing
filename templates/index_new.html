@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Term Deposit Purchase Prediction</title>
+
+  <!-- Loading font types -->
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+ <div class="login">
+	<h3>Predict probability of term deposit purchase</h3>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+    	  <input type="text" name="age" placeholder="Age" required="required" />
+        <input type="text" name="balance" placeholder="Balance" required="required" />
+		    <input type="text" name="day" placeholder="Day of Month" required="required" />
+        <input type="text" name="num_during" placeholder="Number of contacts during campaign" required="required" />
+        <input type="text" name="days_passed" placeholder="Days passed after last contact" required="required" />
+        <input type="text" name="num_before" placeholder="Number of contacts before campaign" required="required" />
+        <input type="text" name="housing" placeholder="Has housing loan" required="required" />
+        <input type="text" name="contact" placeholder="Contact" required="required" />
+        <input type="text" name="success" placeholder="Outcome of previous campaign" required="required" />
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+    {{ prediction_text }}
+
+
+ </div>
+</body>
+</html>

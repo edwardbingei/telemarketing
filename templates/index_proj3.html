@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Customer Behaviour Prediction Tool</title>
+
+  <!-- include jQuery, so we have access to the $.post function -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  <!-- include our own functions -->
+  <script src='static/js/model.js'></script>
+
+  <!-- bootstrap specific stuff -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+
+  <script type = "text/javascript" 
+  src = "{{ url_for('static', filename = 'bank_functions.js') }}" ></script>
+
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>Will your lead subscribe to the banking term deposit?</h1>
+  </div>
+
+  <!-- Use navbar just as a visual divider -->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  </nav>
+
+  <div class="container" style="margin-top:30px">
+    <div class="row">
+
+      <!-- Section for user input -->      
+      <div class="col-sm-5">
+        <h3>Tell me more about your lead</h3>
+
+        <form action="{{ url_for('predict')}}" method='POST'></form>
+
+          <br>Age = <span id='age'>0</span> years old<br>
+          <input type="range" min="0" max="100" step="1" value="0" name='age_slider' id="age" onchange="moveSlider()">
+          <input type='submit' value='submit'/>
+
+          <br>Bank Balance = $ <span id='bank_balance'>0</span><br>
+          <input type="range" min="0" max="31" step="1" value="0" name='balance_slider' id="bank_balance" onchange="moveSlider()">
+          <input type='submit' value='submit'/>
+
+          <br>Day of week = <span id='day_of_week'>0</span><br>
+          <input type="range" min="0" max="31" step="1" value="0" name='day_slider' id="day_of_week" onchange="moveSlider()">
+          <input type='submit' value='submit'/>
+
+          <br> Has a housing loan? <br>
+          <select required name='housing'>
+              <option value='1'>Yes</option>
+              <option value='0'>No</option>
+          </select>
+
+          <br> Was the previous marketing campaign successful? <br>
+          <select required name='marketing'>
+                  <option value='1'>Yes</option>
+                  <option value='0'>No</option>
+        </select>
+          <br><br>
+        <button type='submit' class='btn btn-default'>Predict!</button>
+
+      </div>
+
+      <!-- Section for output/results -->
+      <div class="col-sm-5">
+          <h1>Your lead is most likely going to:</h1>
+        <div id='results'>
+          
+        </div>
+
+        <div id='probability'>
+        </div>
+
+
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+
+function moveSlider(){
+  
+  // Just update all the text for all the sliders
+  const ids = ['age', 'bank_balance', 'day_of_week'];
+  ids.forEach((id) => {
+    const value = $(`#${id}`).val();
+    $(`#${id}_value`).html(value);
+  });
+
+  // Finally, process the model
+  process();
+}
+</script>
+</html>
