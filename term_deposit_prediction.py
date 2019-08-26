@@ -6,7 +6,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load pretrained Random Forest classifier
-with open(r"C:\Users\Edward\Desktop\Data Science\METIS Project 3\Flask app for term deposit\term_deposit.pkl", "rb") as f:
+with open(r"term_deposit.pkl", "rb") as f:
     rdf = pickle.load(f)
 
 # Render the HTML file for the home page
