@@ -1,7 +1,5 @@
-```
 python
 flask
 gunicorn
 numpy
 scikit-learn
-```
